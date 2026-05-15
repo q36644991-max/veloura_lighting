@@ -1,16 +1,17 @@
 services:
   # --- USER DOMAIN ---
-  - type: static
+  - type: web
     name: veloura-user-frontend
+    runtime: static
     buildCommand: ""
-    publishDir: user/frontend
+    staticPublishPath: user/frontend
     headers:
       - key: Access-Control-Allow-Origin
         value: "*"
 
   - type: web
     name: veloura-user-backend
-    env: python
+    runtime: python
     buildCommand: pip install -r user/requirements.txt
     startCommand: ./user/start.sh
     envVars:
@@ -18,17 +19,18 @@ services:
         value: 5000
 
   # --- ADMIN DOMAIN ---
-  - type: static
+  - type: web
     name: veloura-admin-frontend
+    runtime: static
     buildCommand: ""
-    publishDir: admin/frontend
+    staticPublishPath: admin/frontend
     headers:
       - key: Access-Control-Allow-Origin
         value: "*"
 
   - type: web
     name: veloura-admin-backend
-    env: python
+    runtime: python
     buildCommand: pip install -r admin/requirements.txt
     startCommand: ./admin/start.sh
     envVars:
