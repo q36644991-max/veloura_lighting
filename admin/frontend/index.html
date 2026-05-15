@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veloura Admin | Concierge Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#0F2A24',
+                        emerald: '#163832',
+                        gold: '#D4AF37',
+                        yellow: '#F4C95D',
+                        ivory: '#F8F5EE',
+                        beige: '#C8BFAF',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .sidebar-link.active {
+            background: rgba(212, 175, 55, 0.1);
+            color: #D4AF37;
+            border-right: 2px solid #D4AF37;
+        }
+        .section-content { display: none; }
+        .section-content.active { display: block; }
+        
+        .cms-tab-btn.active {
+            color: #D4AF37;
+            border-bottom: 2px solid #D4AF37;
+        }
+        .cms-tab-content { display: none; }
+        .cms-tab-content.active { display: block; }
+
+        /* Glass Modal */
+        .modal-overlay {
+            background: rgba(15, 42, 36, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-forest text-ivory flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-72 bg-emerald/50 border-r border-gold/10 flex flex-col">
+        <div class="p-8 border-b border-gold/10">
+            <h1 class="text-2xl font-cinzel font-bold gold-text tracking-widest">VELOURA</h1>
+            <p class="text-[10px] uppercase tracking-[0.3em] text-beige/50 mt-1">Admin Concierge</p>
+        </div>
+        
+        <nav class="flex-1 p-6 space-y-4 font-manrope text-sm uppercase tracking-widest">
+            <button onclick="showSection('dashboard')" class="sidebar-link active w-full flex items-center space-x-4 p-4 hover:bg-gold/5 transition-all">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Overview</span>
+            </button>
+            <button onclick="showSection('products')" class="sidebar-link w-full flex items-center space-x-4 p-4 hover:bg-gold/5 transition-all">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Bespoke Collection</span>
+            </button>
+            <button onclick="showSection('bookings')" class="sidebar-link w-full flex items-center space-x-4 p-4 hover:bg-gold/5 transition-all">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Consultations</span>
+            </button>
+            <button onclick="showSection('content')" class="sidebar-link w-full flex items-center space-x-4 p-4 hover:bg-gold/5 transition-all">
+                <i class="fa-solid fa-pen-nib"></i>
+                <span>Site Manager</span>
+            </button>
+            <button onclick="showSection('analytics')" class="sidebar-link w-full flex items-center space-x-4 p-4 hover:bg-gold/5 transition-all">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Insights</span>
+            </button>
+        </nav>
+
+        <div class="p-6 border-t border-gold/10">
+            <button id="logout-btn" class="flex items-center space-x-4 p-4 text-red-400/70 hover:text-red-400 transition-colors uppercase tracking-widest text-xs">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Terminate Session</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-hidden relative">
+        <header class="h-20 border-b border-gold/10 px-10 flex items-center justify-between bg-forest/30 backdrop-blur-md z-10">
+            <h2 id="section-title" class="font-heading text-2xl tracking-wide">Overview</h2>
+            <div class="flex items-center space-x-6">
+                <div class="text-right">
+                    <p class="text-sm font-manrope font-semibold tracking-wider uppercase">Marcus Vance</p>
+                    <p class="text-[9px] text-gold uppercase tracking-widest">Chief Curator</p>
+                </div>
+                <div class="w-12 h-12 rounded-full border border-gold/30 p-1">
+                    <div class="w-full h-full rounded-full bg-gold/20 flex items-center justify-center">
+                        <i class="fa-solid fa-user-tie text-gold text-lg"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="main-scroll" class="flex-1 overflow-y-auto p-10 space-y-10">
+            
+            <!-- DASHBOARD SECTION -->
+            <section id="dashboard-section" class="section-content active space-y-10">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="glass-card p-8 border-l-4 border-l-gold">
+                        <p class="text-beige/50 text-[10px] uppercase tracking-widest mb-3">Total Revenue</p>
+                        <p id="stat-revenue" class="text-4xl font-heading gold-text">$0</p>
+                    </div>
+                    <div class="glass-card p-8">
+                        <p class="text-beige/50 text-[10px] uppercase tracking-widest mb-3">Consultations</p>
+                        <p id="stat-bookings" class="text-4xl font-heading gold-text">0</p>
+                    </div>
+                    <div class="glass-card p-8">
+                        <p class="text-beige/50 text-[10px] uppercase tracking-widest mb-3">Masterpieces</p>
+                        <p id="stat-products" class="text-4xl font-heading gold-text">0</p>
+                    </div>
+                    <div class="glass-card p-8">
+                        <p class="text-beige/50 text-[10px] uppercase tracking-widest mb-3">Insights</p>
+                        <p class="text-4xl font-heading gold-text">+12%</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8">
+                    <h3 class="font-heading text-xl mb-8">Revenue Analytics</h3>
+                    <canvas id="revenueChart" height="100"></canvas>
+                </div>
+            </section>
+
+            <!-- PRODUCTS SECTION -->
+            <section id="products-section" class="section-content space-y-8">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-3xl font-heading">Bespoke Collection</h3>
+                    <button onclick="openProductModal()" class="btn-gold text-xs px-8 py-3">Add Piece</button>
+                </div>
+                <div class="glass-card p-0 overflow-hidden">
+                    <table class="w-full text-left font-manrope text-sm">
+                        <thead class="bg-emerald/30 text-gold uppercase text-[9px] tracking-[0.2em]">
+                            <tr>
+                                <th class="px-8 py-6">Piece Name</th>
+                                <th class="px-8 py-6">Category</th>
+                                <th class="px-8 py-6">Price</th>
+                                <th class="px-8 py-6">Stock</th>
+                                <th class="px-8 py-6 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-list" class="divide-y divide-gold/5"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- BOOKINGS SECTION -->
+            <section id="bookings-section" class="section-content space-y-8">
+                <h3 class="text-3xl font-heading">Client Consultations</h3>
+                <div class="glass-card p-0 overflow-hidden">
+                    <table class="w-full text-left font-manrope text-sm">
+                        <thead class="bg-emerald/30 text-gold uppercase text-[9px] tracking-[0.2em]">
+                            <tr>
+                                <th class="px-8 py-6">Client</th>
+                                <th class="px-8 py-6">Email</th>
+                                <th class="px-8 py-6">Project</th>
+                                <th class="px-8 py-6">Status</th>
+                                <th class="px-8 py-6">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="full-bookings-list" class="divide-y divide-gold/5"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SITE CONTENT (CMS) SECTION -->
+            <section id="content-section" class="section-content space-y-8">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-3xl font-heading">Site Manager</h3>
+                    <button onclick="saveFullContent()" class="btn-gold text-xs px-8 py-3">Publish All Changes</button>
+                </div>
+
+                <!-- CMS Tabs -->
+                <div class="flex space-x-8 border-b border-gold/10 font-manrope text-[10px] uppercase tracking-widest pb-px">
+                    <button onclick="showCmsTab('index')" class="cms-tab-btn active pb-4 transition-all">Home Page</button>
+                    <button onclick="showCmsTab('about')" class="cms-tab-btn pb-4 transition-all">About Us</button>
+                    <button onclick="showCmsTab('collections')" class="cms-tab-btn pb-4 transition-all">Collections</button>
+                    <button onclick="showCmsTab('portfolio')" class="cms-tab-btn pb-4 transition-all">Portfolio</button>
+                    <button onclick="showCmsTab('contact')" class="cms-tab-btn pb-4 transition-all">Contact & Info</button>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- INDEX TAB -->
+                    <div id="cms-index" class="cms-tab-content active space-y-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="glass-card p-8 space-y-6">
+                                <h4 class="text-gold font-cinzel text-xs uppercase tracking-widest border-b border-gold/10 pb-4">Hero Section</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Subtitle</label>
+                                        <input type="text" id="idx-hero-subtitle" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Main Title</label>
+                                        <input type="text" id="idx-hero-title" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Description</label>
+                                        <textarea id="idx-hero-desc" rows="3" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="glass-card p-8 space-y-6">
+                                <h4 class="text-gold font-cinzel text-xs uppercase tracking-widest border-b border-gold/10 pb-4">Brand Story</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Headline</label>
+                                        <input type="text" id="idx-story-title" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Story Text</label>
+                                        <textarea id="idx-story-desc" rows="5" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABOUT TAB -->
+                    <div id="cms-about" class="cms-tab-content space-y-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="glass-card p-8 space-y-6">
+                                <h4 class="text-gold font-cinzel text-xs uppercase tracking-widest border-b border-gold/10 pb-4">Hero Content</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Title</label>
+                                        <input type="text" id="abt-hero-title" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Description</label>
+                                        <textarea id="abt-hero-desc" rows="3" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="glass-card p-8 space-y-6">
+                                <h4 class="text-gold font-cinzel text-xs uppercase tracking-widest border-b border-gold/10 pb-4">Vision & Legacy</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Vision Title</label>
+                                        <input type="text" id="abt-vision-title" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Vision Desc</label>
+                                        <textarea id="abt-vision-desc" rows="2" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none"></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Legacy Title</label>
+                                        <input type="text" id="abt-legacy-title" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Legacy Desc</label>
+                                        <textarea id="abt-legacy-desc" rows="2" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLLECTIONS TAB -->
+                    <div id="cms-collections" class="cms-tab-content space-y-8">
+                        <div class="glass-card p-8 space-y-6 max-w-2xl">
+                            <h4 class="text-gold font-cinzel text-xs uppercase tracking-widest border-b border-gold/10 pb-4">Gallery Header</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Main Title</label>
+                                    <input type="text" id="col-hero-title" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Description</label>
+                                    <textarea id="col-hero-desc" rows="3" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PORTFOLIO TAB -->
+                    <div id="cms-portfolio" class="cms-tab-content space-y-8">
+                        <div class="glass-card p-8 space-y-6 max-w-2xl">
+                            <h4 class="text-gold font-cinzel text-xs uppercase tracking-widest border-b border-gold/10 pb-4">Showcase Header</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Main Title</label>
+                                    <input type="text" id="por-hero-title" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Description</label>
+                                    <textarea id="por-hero-desc" rows="3" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONTACT TAB -->
+                    <div id="cms-contact" class="cms-tab-content space-y-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="glass-card p-8 space-y-6">
+                                <h4 class="text-gold font-cinzel text-xs uppercase tracking-widest border-b border-gold/10 pb-4">Contact Hero</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Title</label>
+                                        <input type="text" id="cnt-hero-title" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Description</label>
+                                        <textarea id="cnt-hero-desc" rows="3" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="glass-card p-8 space-y-6">
+                                <h4 class="text-gold font-cinzel text-xs uppercase tracking-widest border-b border-gold/10 pb-4">Global Contact Info</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Address</label>
+                                        <input type="text" id="glb-contact-address" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Email</label>
+                                        <input type="email" id="glb-contact-email" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] uppercase tracking-widest text-gold/60 mb-2">Phone</label>
+                                        <input type="text" id="glb-contact-phone" class="w-full bg-forest border border-gold/10 px-4 py-3 text-sm focus:border-gold outline-none">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- PRODUCT MODAL -->
+    <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <div class="modal-overlay absolute inset-0" onclick="closeProductModal()"></div>
+        <div class="glass-card w-full max-w-xl p-10 z-10 relative">
+            <h3 class="text-2xl font-heading mb-8 gold-text">Catalogue Entry</h3>
+            <form id="product-form" class="space-y-6">
+                <input type="hidden" id="edit-product-id">
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="col-span-2">
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Name of Piece</label>
+                        <input type="text" id="p-name" required class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none">
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Description</label>
+                        <textarea id="p-desc" class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Collection</label>
+                        <select id="p-category" class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none text-beige">
+                            <option value="Chandeliers">Chandeliers</option>
+                            <option value="Pendant Lights">Pendant Lights</option>
+                            <option value="Smart Lighting">Smart Lighting</option>
+                            <option value="Wall Lights">Wall Lights</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Value ($)</label>
+                        <input type="number" id="p-price" required class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Inventory</label>
+                        <input type="number" id="p-stock" required class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Image Filename</label>
+                        <input type="text" id="p-image" class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none" placeholder="collection-1.png">
+                    </div>
+                </div>
+                <div class="pt-6 flex space-x-4">
+                    <button type="button" onclick="closeProductModal()" class="flex-1 border border-gold/30 text-gold py-3 uppercase tracking-widest text-[10px]">Cancel</button>
+                    <button type="submit" class="flex-1 btn-gold py-3">Save Piece</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentToken = localStorage.getItem('adminToken');
+        if (!currentToken) window.location.href = 'login.html';
+
+        const API = {
+            headers: { 'Authorization': currentToken, 'Content-Type': 'application/json' },
+            async fetch(url, options = {}) {
+                const res = await fetch(url, { ...options, headers: this.headers });
+                if (res.status === 401) window.location.href = 'login.html';
+                return res.json();
+            }
+        };
+
+        function showSection(id) {
+            document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+            document.getElementById(`${id}-section`).classList.add('active');
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById('section-title').innerText = event.currentTarget.querySelector('span').innerText;
+            
+            if (id === 'products') loadProducts();
+            if (id === 'bookings') loadBookings();
+            if (id === 'dashboard') loadDashboard();
+            if (id === 'content') loadContent();
+        }
+
+        function showCmsTab(id) {
+            document.querySelectorAll('.cms-tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(`cms-${id}`).classList.add('active');
+            document.querySelectorAll('.cms-tab-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        // CONTENT MANAGEMENT
+        async function loadContent() {
+            const c = await API.fetch('/api/admin/content');
+            // Index
+            document.getElementById('idx-hero-subtitle').value = c.index.hero_subtitle;
+            document.getElementById('idx-hero-title').value = c.index.hero_title;
+            document.getElementById('idx-hero-desc').value = c.index.hero_desc;
+            document.getElementById('idx-story-title').value = c.index.story_title;
+            document.getElementById('idx-story-desc').value = c.index.story_desc;
+            // About
+            document.getElementById('abt-hero-title').value = c.about.hero_title;
+            document.getElementById('abt-hero-desc').value = c.about.hero_desc;
+            document.getElementById('abt-vision-title').value = c.about.vision_title;
+            document.getElementById('abt-vision-desc').value = c.about.vision_desc;
+            document.getElementById('abt-legacy-title').value = c.about.legacy_title;
+            document.getElementById('abt-legacy-desc').value = c.about.legacy_desc;
+            // Collections
+            document.getElementById('col-hero-title').value = c.collections.hero_title;
+            document.getElementById('col-hero-desc').value = c.collections.hero_desc;
+            // Portfolio
+            document.getElementById('por-hero-title').value = c.portfolio.hero_title;
+            document.getElementById('por-hero-desc').value = c.portfolio.hero_desc;
+            // Contact
+            document.getElementById('cnt-hero-title').value = c.contact.hero_title;
+            document.getElementById('cnt-hero-desc').value = c.contact.hero_desc;
+            // Global
+            document.getElementById('glb-contact-address').value = c.global.contact_address;
+            document.getElementById('glb-contact-email').value = c.global.contact_email;
+            document.getElementById('glb-contact-phone').value = c.global.contact_phone;
+        }
+
+        async function saveFullContent() {
+            const data = {
+                index: {
+                    hero_subtitle: document.getElementById('idx-hero-subtitle').value,
+                    hero_title: document.getElementById('idx-hero-title').value,
+                    hero_desc: document.getElementById('idx-hero-desc').value,
+                    story_title: document.getElementById('idx-story-title').value,
+                    story_desc: document.getElementById('idx-story-desc').value,
+                },
+                about: {
+                    hero_title: document.getElementById('abt-hero-title').value,
+                    hero_desc: document.getElementById('abt-hero-desc').value,
+                    vision_title: document.getElementById('abt-vision-title').value,
+                    vision_desc: document.getElementById('abt-vision-desc').value,
+                    legacy_title: document.getElementById('abt-legacy-title').value,
+                    legacy_desc: document.getElementById('abt-legacy-desc').value,
+                },
+                collections: {
+                    hero_title: document.getElementById('col-hero-title').value,
+                    hero_desc: document.getElementById('col-hero-desc').value,
+                },
+                portfolio: {
+                    hero_title: document.getElementById('por-hero-title').value,
+                    hero_desc: document.getElementById('por-hero-desc').value,
+                },
+                contact: {
+                    hero_title: document.getElementById('cnt-hero-title').value,
+                    hero_desc: document.getElementById('cnt-hero-desc').value,
+                },
+                global: {
+                    contact_address: document.getElementById('glb-contact-address').value,
+                    contact_email: document.getElementById('glb-contact-email').value,
+                    contact_phone: document.getElementById('glb-contact-phone').value,
+                }
+            };
+            await API.fetch('/api/admin/content', { method: 'PUT', body: JSON.stringify(data) });
+            alert('Full site identity published successfully!');
+        }
+
+        // DASHBOARD
+        async function loadDashboard() {
+            const d = await API.fetch('/api/admin/stats');
+            document.getElementById('stat-revenue').innerText = `$${d.revenue.toLocaleString()}`;
+            document.getElementById('stat-bookings').innerText = d.consultations;
+            document.getElementById('stat-products').innerText = d.total_products;
+            
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN'],
+                    datasets: [{ label: 'Revenue', data: [12000, 19000, 15000, 25000, 22000, 30000], borderColor: '#D4AF37', tension: 0.4 }]
+                },
+                options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+            });
+        }
+
+        // PRODUCTS
+        async function loadProducts() {
+            const ps = await API.fetch('/api/admin/products');
+            const list = document.getElementById('products-list');
+            list.innerHTML = ps.map(p => `
+                <tr class="hover:bg-gold/5 transition-all">
+                    <td class="px-8 py-6 font-semibold">${p.name}</td>
+                    <td class="px-8 py-6 text-beige/50">${p.category}</td>
+                    <td class="px-8 py-6 text-gold">$${p.price.toLocaleString()}</td>
+                    <td class="px-8 py-6">${p.stock}</td>
+                    <td class="px-8 py-6 text-right space-x-4">
+                        <button onclick='editProduct(${JSON.stringify(p)})' class="text-beige/40 hover:text-gold"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deleteProduct(${p.id})" class="text-beige/40 hover:text-red-400"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openProductModal() { document.getElementById('product-form').reset(); document.getElementById('edit-product-id').value = ''; document.getElementById('product-modal').classList.remove('hidden'); }
+        function closeProductModal() { document.getElementById('product-modal').classList.add('hidden'); }
+        function editProduct(p) { openProductModal(); document.getElementById('edit-product-id').value = p.id; document.getElementById('p-name').value = p.name; document.getElementById('p-category').value = p.category; document.getElementById('p-price').value = p.price; document.getElementById('p-stock').value = p.stock; document.getElementById('p-desc').value = p.description || ''; document.getElementById('p-image').value = p.image_url || ''; }
+        
+        document.getElementById('product-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('edit-product-id').value;
+            const data = { name: document.getElementById('p-name').value, category: document.getElementById('p-category').value, price: parseInt(document.getElementById('p-price').value), stock: parseInt(document.getElementById('p-stock').value), description: document.getElementById('p-desc').value, image_url: document.getElementById('p-image').value };
+            await API.fetch(id ? `/api/admin/products/${id}` : '/api/admin/products', { method: id ? 'PUT' : 'POST', body: JSON.stringify(data) });
+            closeProductModal(); loadProducts();
+        };
+
+        async function deleteProduct(id) { if (confirm('Remove piece?')) { await API.fetch(`/api/admin/products/${id}`, { method: 'DELETE' }); loadProducts(); } }
+
+        // BOOKINGS
+        async function loadBookings() {
+            const bs = await API.fetch('/api/admin/bookings');
+            const list = document.getElementById('full-bookings-list');
+            list.innerHTML = bs.map(b => `
+                <tr class="hover:bg-gold/5">
+                    <td class="px-8 py-6 font-semibold">${b.client}</td>
+                    <td class="px-8 py-6 text-beige/50">${b.email}</td>
+                    <td class="px-8 py-6">${b.type}</td>
+                    <td class="px-8 py-6 text-gold">${b.status}</td>
+                    <td class="px-8 py-6 text-beige/40">${b.date}</td>
+                </tr>
+            `).join('');
+        }
+
+        document.getElementById('logout-btn').onclick = () => { localStorage.removeItem('adminToken'); window.location.href = 'login.html'; };
+        document.addEventListener('DOMContentLoaded', loadDashboard);
+    </script>
+</body>
+</html>
