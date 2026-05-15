@@ -1,0 +1,36 @@
+services:
+  # --- USER DOMAIN ---
+  - type: static
+    name: veloura-user-frontend
+    buildCommand: ""
+    publishDir: user/frontend
+    headers:
+      - key: Access-Control-Allow-Origin
+        value: "*"
+
+  - type: web
+    name: veloura-user-backend
+    env: python
+    buildCommand: pip install -r user/requirements.txt
+    startCommand: ./user/start.sh
+    envVars:
+      - key: PORT
+        value: 5000
+
+  # --- ADMIN DOMAIN ---
+  - type: static
+    name: veloura-admin-frontend
+    buildCommand: ""
+    publishDir: admin/frontend
+    headers:
+      - key: Access-Control-Allow-Origin
+        value: "*"
+
+  - type: web
+    name: veloura-admin-backend
+    env: python
+    buildCommand: pip install -r admin/requirements.txt
+    startCommand: ./admin/start.sh
+    envVars:
+      - key: PORT
+        value: 6000

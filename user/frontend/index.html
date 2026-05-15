@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veloura Lighting | Illuminating Luxury Spaces</title>
+    <meta name="description" content="Veloura Lighting offers premium luxury interior lighting design and architectural lighting solutions for villas, hotels, and commercial spaces.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#0F2A24',
+                        emerald: '#163832',
+                        gold: '#D4AF37',
+                        yellow: '#F4C95D',
+                        ivory: '#F8F5EE',
+                        beige: '#C8BFAF',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-forest text-ivory selection:bg-gold selection:text-forest">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-forest/80 backdrop-blur-md border-b border-gold/10 px-6 py-4 transition-all duration-500">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-cinzel font-bold gold-text tracking-widest">VELOURA</a>
+            <div class="hidden md:flex space-x-8 items-center font-manrope text-sm uppercase tracking-widest">
+                <a href="index.html" class="hover:text-gold transition-colors">Home</a>
+                <a href="collections.html" class="hover:text-gold transition-colors">Collections</a>
+                <a href="portfolio.html" class="hover:text-gold transition-colors">Portfolio</a>
+                <a href="about.html" class="hover:text-gold transition-colors">About</a>
+                <a href="contact.html" class="hover:text-gold transition-colors">Contact</a>
+                <a href="booking.html" class="btn-gold ml-4">Book Consultation</a>
+            </div>
+            <button class="md:hidden text-gold text-2xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Cinematic Video Background -->
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+            <source src="hero-video.mp4" type="video/mp4">
+            <!-- Fallback Image -->
+            <img src="hero-bg.png" alt="Luxury Interior" class="absolute inset-0 w-full h-full object-cover">
+        </video>
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="absolute inset-0 ambient-gradient"></div>
+        
+        <div class="relative z-10 text-center px-4 fade-in">
+            <h2 class="text-gold font-cinzel text-lg md:text-xl mb-4 tracking-[0.3em] uppercase">Premium Lighting Design</h2>
+            <h1 class="text-5xl md:text-8xl font-heading mb-8 gold-glow">Illuminating Luxury Spaces</h1>
+            <p class="max-w-2xl mx-auto text-beige font-body text-lg md:text-xl mb-10">
+                Experience the art of architectural lighting. We craft bespoke illumination that transforms interiors into masterpieces of warmth and elegance.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="collections.html" class="btn-gold">Explore Collections</a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-gold animate-bounce">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </header>
+
+    <!-- Featured Collections -->
+    <section class="section-padding bg-emerald">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-gold font-cinzel mb-2 tracking-widest uppercase">The Collection</h2>
+                    <h3 class="text-4xl font-heading">Curated Masterpieces</h3>
+                </div>
+                <a href="#" class="text-gold border-b border-gold/30 hover:border-gold pb-1 transition-all">View All Collections</a>
+            </div>
+            
+            <div class="scroll-container">
+                <!-- Collection Item 1 -->
+                <div class="group cursor-pointer scroll-item reveal reveal-up">
+                    <div class="relative overflow-hidden aspect-[4/5] mb-4">
+                        <div class="absolute inset-0 bg-[url('collection-1.png')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                    </div>
+                    <h4 class="text-xl font-heading mb-1">Grand Chandeliers</h4>
+                    <p class="text-beige text-sm font-manrope uppercase tracking-widest">Statement Elegance</p>
+                </div>
+                
+                <!-- Collection Item 2 -->
+                <div class="group cursor-pointer scroll-item reveal reveal-up" style="transition-delay: 0.2s;">
+                    <div class="relative overflow-hidden aspect-[4/5] mb-4">
+                        <div class="absolute inset-0 bg-[url('collection-2.png')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                    </div>
+                    <h4 class="text-xl font-heading mb-1">Architectural Pendants</h4>
+                    <p class="text-beige text-sm font-manrope uppercase tracking-widest">Modern Geometry</p>
+                </div>
+                
+                <!-- Collection Item 3 -->
+                <div class="group cursor-pointer scroll-item reveal reveal-up" style="transition-delay: 0.4s;">
+                    <div class="relative overflow-hidden aspect-[4/5] mb-4">
+                        <div class="absolute inset-0 bg-[url('collection-3.png')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110"></div>
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                    </div>
+                    <h4 class="text-xl font-heading mb-1">Smart Ambient Systems</h4>
+                    <p class="text-beige text-sm font-manrope uppercase tracking-widest">Intelligent Living</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Story / About -->
+    <section class="section-padding ambient-gradient">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2">
+                <div class="glass-card reveal reveal-up">
+                    <h2 class="text-gold font-cinzel mb-4 tracking-widest uppercase">Our Story</h2>
+                    <h3 class="text-4xl font-heading mb-6">More Than Just Light</h3>
+                    <p class="text-beige mb-6">
+                        At Veloura, we believe lighting is the soul of an interior. It defines the mood, highlights the architecture, and creates an emotional connection to the space. 
+                    </p>
+                    <p class="text-beige mb-8">
+                        Our designers combine technical precision with artistic vision to deliver lighting solutions that are as functional as they are breathtaking.
+                    </p>
+                    <a href="about.html" class="text-gold font-cinzel tracking-widest border-b border-gold/30 hover:border-gold transition-all pb-1">Discover Our Story</a>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 grid grid-cols-2 gap-4">
+                <div class="aspect-square bg-[url('detail-1.png')] bg-cover bg-center mt-12"></div>
+                <div class="aspect-square bg-[url('detail-2.png')] bg-cover bg-center"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-forest border-t border-gold/10 py-16 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-2">
+                <a href="#" class="text-3xl font-cinzel font-bold gold-text tracking-widest mb-6 block">VELOURA</a>
+                <p class="text-beige max-w-md mb-8">
+                    Bespoke luxury lighting solutions for those who appreciate the finer details of architectural design and interior ambiance.
+                </p>
+                <div class="flex space-x-6 text-gold">
+                    <a href="#" class="hover:text-yellow transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                    <a href="#" class="hover:text-yellow transition-colors"><i class="fa-brands fa-pinterest text-xl"></i></a>
+                    <a href="#" class="hover:text-yellow transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-cinzel text-gold mb-6 uppercase tracking-widest">Navigation</h4>
+                <ul class="space-y-4 text-beige font-manrope text-sm uppercase tracking-wider">
+                    <li><a href="collections.html" class="hover:text-gold transition-colors">Collections</a></li>
+                    <li><a href="portfolio.html" class="hover:text-gold transition-colors">Portfolio</a></li>
+                    <li><a href="about.html" class="hover:text-gold transition-colors">About Us</a></li>
+                    <li><a href="booking.html" class="hover:text-gold transition-colors">Book Consultation</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-cinzel text-gold mb-6 uppercase tracking-widest">Contact</h4>
+                <ul class="space-y-4 text-beige font-manrope text-sm">
+                    <li>123 Luxury Lane, Dubai, UAE</li>
+                    <li>concierge@veloura.lighting</li>
+                    <li>+971 4 000 0000</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-gold/5 text-center text-beige/50 text-xs tracking-widest uppercase">
+            &copy; 2026 Veloura Lighting. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Veloura Lighting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#0F2A24',
+                        emerald: '#163832',
+                        gold: '#D4AF37',
+                        yellow: '#F4C95D',
+                        ivory: '#F8F5EE',
+                        beige: '#C8BFAF',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../../user/frontend/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-forest flex items-center justify-center h-screen ambient-gradient">
+
+    <div class="glass-card w-full max-w-md p-10">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-cinzel font-bold gold-text tracking-widest mb-2">VELOURA</h1>
+            <p class="text-xs uppercase tracking-[0.3em] text-beige/50">Concierge Authentication</p>
+        </div>
+        
+        <form id="login-form" class="space-y-6">
+            <div>
+                <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Access Key</label>
+                <input type="text" placeholder="Username" class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none transition-colors">
+            </div>
+            <div>
+                <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Secret Cipher</label>
+                <input type="password" placeholder="Password" class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none transition-colors">
+            </div>
+            
+            <button type="submit" class="w-full btn-gold py-4">Authenticate</button>
+            
+            <div class="text-center pt-4">
+                <a href="../../user/frontend/index.html" class="text-[10px] text-beige/50 hover:text-gold transition-colors uppercase tracking-widest">Return to Showroom</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // In a real app, you'd call the auth-service here.
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
