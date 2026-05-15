@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Veloura Lighting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#0F2A24',
+                        emerald: '#163832',
+                        gold: '#D4AF37',
+                        yellow: '#F4C95D',
+                        ivory: '#F8F5EE',
+                        beige: '#C8BFAF',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-forest text-ivory">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-forest/80 backdrop-blur-md border-b border-gold/10 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-cinzel font-bold gold-text tracking-widest">VELOURA</a>
+            <div class="hidden md:flex space-x-8 items-center font-manrope text-sm uppercase tracking-widest">
+                <a href="index.html" class="hover:text-gold transition-colors">Home</a>
+                <a href="collections.html" class="hover:text-gold transition-colors">Collections</a>
+                <a href="portfolio.html" class="hover:text-gold transition-colors">Portfolio</a>
+                <a href="about.html" class="hover:text-gold transition-colors">About</a>
+                <a href="contact.html" class="hover:text-gold transition-colors">Contact</a>
+                <a href="booking.html" class="btn-gold ml-4">Book Consultation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Details Section -->
+    <main class="pt-32 pb-24 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col lg:flex-row gap-16">
+            
+            <!-- Image Gallery -->
+            <div class="w-full lg:w-1/2">
+                <div class="glass-card p-0 overflow-hidden mb-6 aspect-square">
+                    <img id="product-image" src="collection-1.png" alt="Product" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110">
+                </div>
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="aspect-square bg-emerald/20 border border-gold/20 rounded cursor-pointer overflow-hidden opacity-100 border-gold">
+                        <img src="collection-1.png" class="w-full h-full object-cover">
+                    </div>
+                    <div class="aspect-square bg-emerald/20 border border-gold/10 rounded cursor-pointer overflow-hidden opacity-50 hover:opacity-100 transition-opacity">
+                        <img src="detail-1.png" class="w-full h-full object-cover">
+                    </div>
+                    <div class="aspect-square bg-emerald/20 border border-gold/10 rounded cursor-pointer overflow-hidden opacity-50 hover:opacity-100 transition-opacity">
+                        <img src="collection-2.png" class="w-full h-full object-cover">
+                    </div>
+                    <div class="aspect-square bg-emerald/20 border border-gold/10 rounded cursor-pointer overflow-hidden opacity-50 hover:opacity-100 transition-opacity">
+                        <img src="detail-2.png" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="w-full lg:w-1/2 flex flex-col justify-center">
+                <h2 id="product-category" class="text-gold font-cinzel text-sm tracking-widest uppercase mb-4">Chandeliers</h2>
+                <h1 id="product-name" class="text-4xl md:text-6xl font-heading mb-6">The Celestial Grand</h1>
+                <p id="product-price" class="text-3xl font-body text-gold mb-8">$4,800</p>
+                
+                <div class="space-y-6 mb-10 text-beige">
+                    <p id="product-description" class="text-lg leading-relaxed">
+                        A masterpiece of light and glass, the Celestial Grand anchors any room with a majestic presence. Hand-blown crystal elements are suspended by a 24K gold-plated frame, creating an ethereal glow that dances across the walls.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-8 pt-6 border-t border-gold/10 font-manrope text-sm uppercase tracking-widest">
+                        <div>
+                            <p class="text-gold mb-1">Materials</p>
+                            <p id="product-materials">Crystal, 24K Gold Plating</p>
+                        </div>
+                        <div>
+                            <p class="text-gold mb-1">Dimensions</p>
+                            <p id="product-dimensions">120cm x 150cm</p>
+                        </div>
+                        <div>
+                            <p class="text-gold mb-1">Light Tone</p>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-[#FFD27D]"></div>
+                                <span id="product-tone">Warm Ambient (2700K)</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-gold mb-1">Lead Time</p>
+                            <p id="product-lead-time">6-8 Weeks</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="booking.html" class="btn-gold flex-1 text-center py-4">Inquire About This Piece</a>
+                    <button class="flex-1 border border-gold/30 text-gold py-4 font-cinzel tracking-widest hover:bg-gold/5 transition-colors">Download Specs</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Specifications Accordion (Optional placeholder) -->
+        <div class="mt-24">
+            <h3 class="text-2xl font-heading mb-8 border-b border-gold/10 pb-4">Specifications</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 font-manrope text-sm text-beige">
+                <div class="flex justify-between border-b border-gold/5 py-4">
+                    <span>Voltage</span>
+                    <span class="text-gold">110-240V</span>
+                </div>
+                <div class="flex justify-between border-b border-gold/5 py-4">
+                    <span>Bulb Type</span>
+                    <span class="text-gold">Integrated LED (Dimmable)</span>
+                </div>
+                <div class="flex justify-between border-b border-gold/5 py-4">
+                    <span>Weight</span>
+                    <span class="text-gold">45kg</span>
+                </div>
+                <div class="flex justify-between border-b border-gold/5 py-4">
+                    <span>Certification</span>
+                    <span class="text-gold">CE, UL, RoHS</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-forest border-t border-gold/10 py-16 px-6 mt-24">
+        <div class="max-w-7xl mx-auto text-center">
+            <a href="index.html" class="text-3xl font-cinzel font-bold gold-text tracking-widest mb-8 block">VELOURA</a>
+            <p class="text-beige/50 text-xs tracking-widest uppercase">&copy; 2026 Veloura Lighting. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple mock database for demonstration
+        const productData = {
+            1: {
+                name: "The Celestial Grand",
+                category: "Chandeliers",
+                price: "$4,800",
+                image: "collection-1.png",
+                description: "A masterpiece of light and glass, the Celestial Grand anchors any room with a majestic presence. Hand-blown crystal elements are suspended by a 24K gold-plated frame, creating an ethereal glow that dances across the walls.",
+                materials: "Crystal, 24K Gold Plating",
+                dimensions: "120cm x 150cm",
+                tone: "Warm Ambient (2700K)"
+            },
+            2: {
+                name: "Aura Pendant",
+                category: "Pendant Lights",
+                price: "$1,200",
+                image: "collection-2.png",
+                description: "The Aura Pendant combines geometric minimalism with warm, diffused light. Perfect for modern dining areas or sophisticated office spaces.",
+                materials: "Solid Brass, Opal Glass",
+                dimensions: "45cm x 60cm",
+                tone: "Warm White (3000K)"
+            },
+            3: {
+                name: "Lumina Smart Core",
+                category: "Smart Lighting",
+                price: "$3,500",
+                image: "collection-3.png",
+                description: "An intelligent lighting system that integrates seamlessly into your architecture. Features full RGBW control and automated scene transitions.",
+                materials: "Aluminum, Composite Diffuser",
+                dimensions: "Customizable",
+                tone: "Full Spectrum (RGBW)"
+            }
+        };
+
+        // Populate page based on live API
+        async function initProduct() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id') || 1;
+            
+            try {
+                const response = await fetch(`/api/product/products/${id}`);
+                if (!response.ok) throw new Error('Product not found');
+                const product = await response.json();
+
+                document.getElementById('product-name').textContent = product.name;
+                document.getElementById('product-category').textContent = product.category;
+                document.getElementById('product-price').textContent = `$${product.price}`;
+                document.getElementById('product-image').src = product.image_url;
+                
+                // Keep default descriptions/details for now as they aren't in the mock API yet
+                document.title = `${product.name} | Veloura Lighting`;
+            } catch (err) {
+                console.error('Error fetching product:', err);
+                // Fallback to internal mock if API fails
+                const mock = productData[id];
+                if (mock) {
+                    document.getElementById('product-name').textContent = mock.name;
+                    document.getElementById('product-image').src = mock.image;
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initProduct);
+    </script>
+</body>
+</html>

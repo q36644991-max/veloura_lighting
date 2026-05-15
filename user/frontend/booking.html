@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Consultation | Veloura Lighting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: '#0F2A24',
+                        emerald: '#163832',
+                        gold: '#D4AF37',
+                        yellow: '#F4C95D',
+                        ivory: '#F8F5EE',
+                        beige: '#C8BFAF',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        manrope: ['Manrope', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-forest text-ivory">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-forest/80 backdrop-blur-md border-b border-gold/10 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-cinzel font-bold gold-text tracking-widest">VELOURA</a>
+            <div class="hidden md:flex space-x-8 items-center font-manrope text-sm uppercase tracking-widest">
+                <a href="index.html" class="hover:text-gold transition-colors">Home</a>
+                <a href="collections.html" class="hover:text-gold transition-colors">Collections</a>
+                <a href="portfolio.html" class="hover:text-gold transition-colors">Portfolio</a>
+                <a href="about.html" class="hover:text-gold transition-colors">About</a>
+                <a href="contact.html" class="hover:text-gold transition-colors">Contact</a>
+                <a href="booking.html" class="btn-gold ml-4">Book Consultation</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-48 pb-16 px-6 text-center ambient-gradient">
+        <h2 class="text-gold font-cinzel text-lg mb-4 tracking-widest uppercase">Premium Service</h2>
+        <h1 class="text-5xl md:text-7xl font-heading mb-6">Reserve a Consultation</h1>
+        <p class="max-w-2xl mx-auto text-beige font-body">Begin your journey towards a perfectly illuminated space with our expert design team.</p>
+    </header>
+
+    <main class="section-padding max-w-4xl mx-auto">
+        <div class="glass-card">
+            <div class="mb-12 border-b border-gold/10 pb-8 text-center">
+                <h2 class="text-2xl font-heading text-gold mb-2">Project Brief</h2>
+                <p class="text-beige/60 text-sm">Tell us about your space and requirements.</p>
+            </div>
+
+            <form id="booking-form" class="space-y-8">
+                <!-- Personal Details -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Full Name</label>
+                        <input type="text" required placeholder="John Doe" class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Email Address</label>
+                        <input type="email" required placeholder="john@example.com" class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Phone Number</label>
+                        <input type="tel" required placeholder="+971 50 000 0000" class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Preferred Date</label>
+                        <input type="date" required class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none transition-colors text-beige">
+                    </div>
+                </div>
+
+                <!-- Project Details -->
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Project Type</label>
+                        <select class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none transition-colors text-beige">
+                            <option value="villa">Luxury Villa</option>
+                            <option value="apartment">Penthouse / Apartment</option>
+                            <option value="commercial">Commercial / Office</option>
+                            <option value="hotel">Hotel / Resort</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase tracking-widest text-gold mb-2">Brief Description</label>
+                        <textarea rows="4" placeholder="Describe your vision, specific rooms, or lighting needs..." class="w-full bg-forest border border-gold/20 px-4 py-3 text-sm focus:border-gold outline-none transition-colors"></textarea>
+                    </div>
+                </div>
+
+                <div class="bg-emerald/20 border border-gold/10 p-6 rounded-lg text-center">
+                    <p class="text-beige/70 text-sm mb-4 italic">
+                        Our concierge will contact you within 24 hours to confirm your appointment and discuss initial project details.
+                    </p>
+                    <button type="submit" class="btn-gold w-full md:w-auto px-12 py-4">Request Consultation</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-forest border-t border-gold/10 py-16 px-6 mt-24">
+        <div class="max-w-7xl mx-auto text-center">
+            <a href="index.html" class="text-3xl font-cinzel font-bold gold-text tracking-widest mb-8 block">VELOURA</a>
+            <p class="text-beige/50 text-xs tracking-widest uppercase">&copy; 2026 Veloura Lighting. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('booking-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const bookingData = {
+                name: e.target.querySelector('input[placeholder="John Doe"]').value,
+                email: e.target.querySelector('input[type="email"]').value,
+                phone: e.target.querySelector('input[type="tel"]').value,
+                date: e.target.querySelector('input[type="date"]').value,
+                type: e.target.querySelector('select').value,
+                description: e.target.querySelector('textarea').value
+            };
+
+            try {
+                const response = await fetch('/api/booking/bookings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookingData)
+                });
+
+                if (response.ok) {
+                    alert('Your luxury consultation request has been submitted. A Veloura specialist will contact you shortly.');
+                    e.target.reset();
+                } else {
+                    alert('There was an issue submitting your request. Please try again.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Connection error. Please try again later.');
+            }
+        });
+    </script>
+</body>
+</html>
